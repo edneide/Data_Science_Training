@@ -1,0 +1,47 @@
+===========================================================================================
+STREAMLIT NO HEROKU
+===========================================================================================
+Passo a passo para subir o dahsboard no Heroku:
+
+1. Instale o Git ( Ref: https://www.atlassian.com/br/git/tutorials/install-git )
+2. Faça o download e instale o CLI do Heroku ( Ref: https://devcenter.heroku.com/articles/heroku-cli )
+
+3. Crie uma nova pasta ( house_rocket )
+4. Copie os arquivos kc_house_data.csv e dashboard.py para dentro da pasta criada.
+5. Crie o arquivo Procfile ( "P" maiúsculo e não tem extensão )
+6. Copie e cole a seguinte linha dentro do Procfile
+              web: sh setup.sh && streamlit run dashboard.py
+
+7. Crie o arquivo requirements.txt
+8. Copie e cole as seguintes linhas dentro do requirements.txt
+             folium==0.11.0
+             geopandas==0.8.2
+             numpy==1.19.5
+             pandas==1.1.5
+             plotly==4.14.3
+             streamlit==0.76.0
+             streamlit-folium==0.1.1
+
+9. Crie o arquivo setup.sh
+10. Copie e cole as seguintes linhas dentro do arquivo setup.sh
+                mkdir -p ~/.streamlit/
+
+               echo "\
+               [general]\n\
+               email = \"meu_email@gmail.com\"\n\
+               " > ~/.streamlit/credentials.toml
+
+              echo "\
+              [server]\n\
+              headless = true\n\
+             enableCORS=false\n\
+             port = $PORT\n\
+             " > ~/.streamlit/config.toml
+
+11. Inicie o git dentro da pasta ( Comando: git init )
+12. Faço o login no Heroku pelo Terminal ( Comando: heroku login )
+13. Crie um aplicativo que armazenará o seu dashboard ( Comando: heroku apps:create analytics-house-rocket )
+14. Versione todo os arquivos com o Git ( Comando: git add . )
+15. Escreve uma mensagem indicando as mudanças no Git ( Comando: git commit -m 'first commit' )
+16. Envie os dados para o Heroku ( Comando: git push heroku master )
+17. Inicialize o serviço no Heroku ( Comando: heroku ps:scale web=1 )
